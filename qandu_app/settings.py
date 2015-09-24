@@ -36,6 +36,8 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = (
+    'registration',
+    'django.contrib.sites',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -89,10 +91,10 @@ if ON_HEROKU == False:
   }
 else:
   DATABASES = {}
-import dj_database_url
-DATABASES['default'] =  dj_database_url.config()
-SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
-ALLOWED_HOSTS = ['*']
+  import dj_database_url
+  DATABASES['default'] =  dj_database_url.config()
+  SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
+  ALLOWED_HOSTS = ['*']
 
 # Internationalization
 # https://docs.djangoproject.com/en/1.8/topics/i18n/
@@ -114,3 +116,7 @@ USE_TZ = True
 STATIC_URL = '/static/'
 STATICFILES_DIRS = (os.path.join(MAIN_DIR, 'static'),)
 STATIC_ROOT = 'staticfiles'
+
+LOGIN_URL = '/user/login'
+LOGIN_REDIRECT_URL ='/'
+SITE_ID = 1
