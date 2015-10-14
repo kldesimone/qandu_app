@@ -114,7 +114,7 @@ class VoteFormView(FormView):
         prev_votes = Vote.objects.filter(user=user, answer=answer)
         has_voted = (prev_votes.count()>0)
         if not has_voted:
-            Vote.objects.create(user=user, question=question)
+            Vote.objects.create(user=user, answer=answer)
         else:
             prev_votes[0].delete()
         return redirect(reverse('question_detail', args=[form.data["question"]]))
@@ -126,13 +126,13 @@ class VoteFormView(FormView):
         else:
           prev_votes[0].delete()
     return redirect('question_list')
-  
+
 class UserDetailView(DetailView):
   model = User
   slug_field = 'username'
   template_name = 'user/user_detail.html'
   context_object_name = 'user_in_view'
-  
+
   def get_context_data(self, **kwargs):
       context = super(UserDetailView, self).get_context_data(**kwargs)
       user_in_view = User.objects.get(username=self.kwargs['slug'])
